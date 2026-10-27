@@ -40,3 +40,9 @@ go.work.local
 internal/utils/data/
 .zcode/
 adapter_coverage
+/data
+/tmp
+/.codegraph
+/.trae
+/.workbuddy
+/.zcode
