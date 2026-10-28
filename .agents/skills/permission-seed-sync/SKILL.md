@@ -24,7 +24,7 @@ description: 把前端 permission-seed.ts 的权限种子同步到 Go 后端 sys
 | 目标 | `internal/service/system_permission.go` | `SeedPermission` 结构体（L132）、`InitSystemPermissions`（L727）、`seedData` |
 | 落库 | 同文件 `InitSeedPermissions`（L617） | 按 `(Domain, Code)` 判断新增/更新 |
 
-当前基线：`seedData` 约 201 条（menu/api/button 混合），最大 ID 205。同步前后用条数与 type 分布对比，能快速发现漏改。
+当前基线：`seedData` 约 205 条（menu/api/button 混合），最大 ID 210。同步前后用条数与 type 分布对比，能快速发现漏改。条数硬断言在 `internal/service/system_permission_test.go` 的 `TestInitSystemPermissions_CreatesAllDefaultSeeds`（`wantCount`），新增权限后必须同步调整。
 
 ## 执行步骤
 
