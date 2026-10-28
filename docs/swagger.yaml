@@ -662,6 +662,25 @@ definitions:
     - display_name
     - name
     type: object
+  service.CreateSlideGroupRequest:
+    properties:
+      label:
+        maxLength: 100
+        type: string
+      remark:
+        maxLength: 500
+        type: string
+      sort:
+        type: integer
+      status:
+        type: integer
+      value:
+        maxLength: 100
+        type: string
+    required:
+    - label
+    - value
+    type: object
   service.CreateSlideRequest:
     properties:
       group_code:
@@ -1512,6 +1531,27 @@ definitions:
     - domain
     - permissions
     type: object
+  service.SlideGroupResponse:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      label:
+        type: string
+      remark:
+        type: string
+      slide_count:
+        type: integer
+      sort:
+        type: integer
+      status:
+        type: integer
+      updated_at:
+        type: string
+      value:
+        type: string
+    type: object
   service.SlidePublicResponse:
     properties:
       group_code:
@@ -1948,6 +1988,22 @@ definitions:
         maxLength: 255
         type: string
       updated_by:
+        type: string
+    type: object
+  service.UpdateSlideGroupRequest:
+    properties:
+      label:
+        maxLength: 100
+        type: string
+      remark:
+        maxLength: 500
+        type: string
+      sort:
+        type: integer
+      status:
+        type: integer
+      value:
+        maxLength: 100
         type: string
     type: object
   service.UpdateSlideRequest:
@@ -7022,6 +7078,173 @@ paths:
       summary: 从角色移除权限
       tags:
       - 权限管理
+  /api/v1/admin/auth/slide-groups:
+    get:
+      description: 获取幻灯片分组列表(字典类型 slide_group),含每个分组下的幻灯片数量
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/utils.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/service.SlideGroupResponse'
+                  type: array
+              type: object
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.Response'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/utils.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Response'
+      security:
+      - BearerAuth: []
+      summary: 获取幻灯片分组列表
+      tags:
+      - 幻灯片管理
+    post:
+      consumes:
+      - application/json
+      description: 新增幻灯片分组,写入字典类型 slide_group
+      parameters:
+      - description: 分组信息
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/service.CreateSlideGroupRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/utils.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/service.SlideGroupResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.Response'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/utils.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Response'
+      security:
+      - BearerAuth: []
+      summary: 创建幻灯片分组
+      tags:
+      - 幻灯片管理
+  /api/v1/admin/auth/slide-groups/{id}:
+    delete:
+      description: 删除幻灯片分组;分组下仍有幻灯片时拒绝删除
+      parameters:
+      - description: 分组ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.Response'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/utils.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Response'
+      security:
+      - BearerAuth: []
+      summary: 删除幻灯片分组
+      tags:
+      - 幻灯片管理
+    put:
+      consumes:
+      - application/json
+      description: 更新幻灯片分组;修改分组编码会同步迁移该分组下的幻灯片
+      parameters:
+      - description: 分组ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 更新信息
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/service.UpdateSlideGroupRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.Response'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/utils.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Response'
+      security:
+      - BearerAuth: []
+      summary: 更新幻灯片分组
+      tags:
+      - 幻灯片管理
   /api/v1/admin/auth/slides:
     get:
       description: 获取幻灯片列表,支持分页、分组和状态筛选

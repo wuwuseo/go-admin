@@ -816,9 +816,31 @@ func TestInitSystemPermissions_CreatesAllDefaultSeeds(t *testing.T) {
 	if err != nil {
 		t.Fatalf("count system permissions failed: %v", err)
 	}
-	const wantCount = 200
+	const wantCount = 205
 	if count != wantCount {
 		t.Fatalf("default system permission count = %d, want %d", count, wantCount)
+	}
+}
+
+func TestInitSystemPermissions_IncludesSlideGroupSeeds(t *testing.T) {
+	setupSystemPermissionTest(t)
+	ctx := t.Context()
+
+	if err := InitSystemPermissions(ctx); err != nil {
+		t.Fatalf("InitSystemPermissions failed: %v", err)
+	}
+
+	expected := []seedPermissionExpectation{
+		{Code: "system:slide", Type: "menu", MenuPath: "/system/slide", ParentCode: "system"},
+		{Code: "slide-group:list", Type: "api", Path: "/api/v1/admin/auth/slide-groups", Method: "GET", ParentCode: "system:slide"},
+		{Code: "slide-group:create", Type: "api", Path: "/api/v1/admin/auth/slide-groups", Method: "POST", ParentCode: "system:slide"},
+		{Code: "slide-group:update", Type: "api", Path: "/api/v1/admin/auth/slide-groups/{id}", Method: "PUT", ParentCode: "system:slide"},
+		{Code: "slide-group:delete", Type: "api", Path: "/api/v1/admin/auth/slide-groups/{id}", Method: "DELETE", ParentCode: "system:slide"},
+		{Code: "slide:group", Type: "button", ParentCode: "system:slide"},
+	}
+
+	for _, want := range expected {
+		assertSeedPermissionExists(t, ctx, want)
 	}
 }
 
