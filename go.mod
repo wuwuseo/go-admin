@@ -17,13 +17,19 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/swaggo/swag v1.16.4
-	github.com/wuwuseo/cmf v1.3.0
+	github.com/wuwuseo/cmf v1.5.0
 	go.uber.org/zap v1.28.0
 	golang.org/x/net v0.58.0
 	golang.org/x/oauth2 v0.36.0
 	google.golang.org/grpc v1.83.2
 	google.golang.org/protobuf v1.36.11
 	modernc.org/sqlite v1.50.1
+)
+
+require (
+	github.com/fasthttp/websocket v1.5.12 // indirect
+	github.com/gofiber/contrib/v3/websocket v1.1.5 // indirect
+	github.com/savsgio/gotils v0.0.0-20250924091648-bce9a52d7761 // indirect
 )
 
 require (
@@ -95,7 +101,7 @@ require (
 	github.com/gofiber/contrib/v3/zap v1.0.4 // indirect
 	github.com/gofiber/schema v1.7.1 // indirect
 	github.com/gofiber/storage v1.3.3 // indirect
-	github.com/gofiber/utils/v2 v2.0.4 // indirect
+	github.com/gofiber/utils/v2 v2.0.5 // indirect
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/google/go-cmp v0.7.0 // indirect
 	github.com/gorilla/css v1.0.1 // indirect
@@ -137,7 +143,7 @@ require (
 	github.com/twmb/franz-go/pkg/kadm v1.17.2 // indirect
 	github.com/twmb/franz-go/pkg/kmsg v1.13.1 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
-	github.com/valyala/fasthttp v1.70.0 // indirect
+	github.com/valyala/fasthttp v1.71.0 // indirect
 	github.com/wuwuseo/ent v0.1.0
 	github.com/zclconf/go-cty v1.16.2 // indirect
 	github.com/zclconf/go-cty-yaml v1.1.0 // indirect

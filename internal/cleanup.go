@@ -9,6 +9,7 @@ import (
 	adminqueue "go-admin/internal/queue"
 	"go-admin/internal/service"
 	"go-admin/internal/utils"
+	"go-admin/internal/ws"
 
 	"github.com/wuwuseo/cmf/log"
 	"go.uber.org/zap"
@@ -66,6 +67,10 @@ func Cleanup() error {
 		return errors.Join(pluginCloseErr, err)
 	}
 	log.Info("登录日志服务已停止")
+
+	// 关闭 WebSocket 实时通知连接（在关闭 DB 之前）
+	ws.Shutdown()
+	log.Info("WebSocket 实时通知已关闭")
 
 	// 清理 Wire 注入的数据库连接池
 	if appInstance != nil && appInstance.DB != nil {

@@ -32,6 +32,7 @@ import (
 	adminqueue "go-admin/internal/queue"
 	"go-admin/internal/service"
 	"go-admin/internal/utils"
+	"go-admin/internal/ws"
 
 	"github.com/wuwuseo/cmf/sse"
 )
@@ -117,6 +118,10 @@ func Init(config *config.Config) error {
 		zap.String("hub_ptr", fmt.Sprintf("%p", appInstance.Hub)),
 		zap.String("ticket_store_ptr", fmt.Sprintf("%p", appInstance.TicketStore)),
 	)
+
+	// 初始化 WebSocket 实时通知（Hub / ticket / ent 消息 hook）
+	ws.Init(appInstance.Logger)
+	appInstance.Logger.Info("WebSocket 实时通知初始化完成")
 
 	// 初始化通知渠道注册表（站内信 + 短信 / 邮件 / 极光推送，按 notify.* 配置启用）
 	appInstance.Notifiers = service.BuildNotifiers(appInstance.Hub)
