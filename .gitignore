@@ -1,4 +1,4 @@
-web/
+web/dist
 tmp/
 /data/logs/*.log
 *.exe
