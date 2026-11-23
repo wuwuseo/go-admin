@@ -521,12 +521,6 @@ test: 测试相关
 
 本项目采用 [MIT License](LICENSE) 许可证。
 
-## 📞 支持和联系
-
-- **问题反馈**: [GitHub Issues](https://github.com/your-org/go-admin/issues)
-- **功能请求**: [GitHub Discussions](https://github.com/your-org/go-admin/discussions)
-- **邮件联系**: admin@example.com
-
 ## 🙏 致谢
 
 感谢以下开源项目的支持：
