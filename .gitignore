@@ -11,6 +11,7 @@ tmp/
 /data/plugin-packages
 /data/plugin-tmp
 go-admin
+go-admin.exe
 /.env
 
 # IDE / 工具缓存
